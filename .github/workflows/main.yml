@@ -21,11 +21,6 @@ jobs:
           MYSQL_DATABASE: laravel
         ports:
           - 3306
-        options: >-
-          --health-cmd="mysqladmin ping --silent"
-          --health-interval=5s
-          --health-timeout=2s
-          --health-retries=3
 
     steps:
       - uses: actions/checkout@v4
@@ -54,12 +49,6 @@ jobs:
       - name: Copy .env.example to .env
         run: cp .env.example .env
 
-      - name: Wait for MySQL
-        run: |
-          while ! mysqladmin ping -h"127.0.0.1" --silent; do
-            sleep 1
-          done
-
       - name: Generate application key
         run: php artisan key:generate
 
@@ -69,3 +58,6 @@ jobs:
       # Pastikan Anda memiliki skrip pengujian yang didefinisikan di composer.json
       - name: Run test suite
         run: composer run-script test
+
+      - name: Run local
+        run: php artisan serve
