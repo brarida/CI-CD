@@ -52,9 +52,6 @@ jobs:
       - name: Generate application key
         run: php artisan key:generate
 
-      - name: Run migrations
-        run: php artisan migrate --force
-
       # Pastikan Anda memiliki skrip pengujian yang didefinisikan di composer.json
       - name: Run test suite
         run: composer run-script test
